@@ -1188,14 +1188,14 @@ function decrypt(password, data, keyLength, mode, iv)
 	return result
 end
 
-function AESWritefile(Data, Key)
-    return encrypt(Key, Data, 32, nil, nil, nil)
+function AESWritefile(Filename, Data, Key)
+    return pcall(writefile, Filename, encrypt(Key, Data, 32, nil, nil, nil))
 end
 function AESReadfile(Filename, Key)
-    return decrypt(Key, Filename, 32, nil, nil, nil)
+    return decrypt(Key, readfile(Filename), 32, nil, nil, nil)
 end
 
 return {
-    AesEncrypt = AESWritefile,
-    AesDecrypt = AESReadfile
+    Writefile = AESWritefile,
+    Readfile = AESReadfile
 }
